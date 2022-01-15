@@ -1,6 +1,17 @@
 package com.shin.springbykotlin.member.model
 
+import javax.persistence.*
+
+@Entity
 data class Member(
-    val name: String,
-    val age: Int
-)
+    @Column(name = "memberId", nullable = false)
+    val memberId: String,
+    @Column(name = "name", nullable = false)
+    val name: String
+) {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id", nullable = false)
+    open var id: Long? = null
+
+}
