@@ -3,3 +3,8 @@ spring:
     url: jdbc:h2:tcp://localhost/~/Downloads/test
     driver-class-name: org.h2.Driver
     username: sa
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
