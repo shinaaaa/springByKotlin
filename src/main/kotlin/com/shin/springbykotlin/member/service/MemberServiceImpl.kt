@@ -18,7 +18,7 @@ class MemberServiceImpl : MemberService {
         memberRepository.save(member)
     }
 
-    override fun findByMemberId(memderId: String): Member {
+    override fun findByMemberId(memderId: String): Member? {
         return memberRepository.findByMemberId(memderId)
     }
 
