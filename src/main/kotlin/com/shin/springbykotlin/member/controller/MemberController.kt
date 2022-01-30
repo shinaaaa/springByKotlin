@@ -17,8 +17,12 @@ class MemberController {
     lateinit var memberService: MemberService
 
     @PostMapping("/join")
-    fun join(member: Member) {
-        return memberService.join(member)
+    fun join(member: Member): ResponseFormat {
+        return ResponseFormat
+            .Builder()
+            .setStatus(HttpStatus.OK)
+            .setData(memberService.join(member))
+            .build()
     }
 
     @PostMapping("/findById")

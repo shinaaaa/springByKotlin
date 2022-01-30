@@ -7,7 +7,9 @@ data class Member(
     @Column(name = "memberId", nullable = false)
     val memberId: String,
     @Column(name = "name", nullable = false)
-    val name: String
+    val name: String,
+    @Column(name = "password", nullable = false)
+    val password: String
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
