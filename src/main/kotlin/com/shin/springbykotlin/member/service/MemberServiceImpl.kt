@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional
 import java.util.regex.Pattern
 
 @Service
-@Transactional(readOnly = true)
+@Transactional
 class MemberServiceImpl : MemberService {
 
     @Autowired
@@ -24,6 +24,10 @@ class MemberServiceImpl : MemberService {
 
     override fun findByMemberId(memberId: String): Member? {
         return memberRepository.findByMemberId(memberId)
+    }
+
+    override fun delete(memberId: String, password: String): Boolean {
+        return memberRepository.deleteMemberByMemberIdAndPassword(memberId, password) == 1
     }
 
     fun validateById(memberId: String): Boolean {

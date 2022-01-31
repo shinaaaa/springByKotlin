@@ -33,4 +33,13 @@ class MemberController {
             .setData(memberService.findByMemberId(memberId))
             .build()
     }
+
+    @PostMapping("/delete")
+    fun delete(memberId : String, password : String) : ResponseFormat {
+        return ResponseFormat
+            .Builder()
+            .setStatus(HttpStatus.OK)
+            .setData(memberService.delete(memberId , password))
+            .build()
+    }
 }
