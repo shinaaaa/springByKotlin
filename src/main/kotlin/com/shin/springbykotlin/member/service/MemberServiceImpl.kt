@@ -2,10 +2,11 @@ package com.shin.springbykotlin.member.service
 
 import com.shin.springbykotlin.member.model.Member
 import com.shin.springbykotlin.member.repository.MemberRepository
+import com.shin.springbykotlin.member.utils.CommonUtils
+import com.shin.springbykotlin.member.utils.CommonUtils.Companion.encryptPassword
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.util.regex.Pattern
 
 @Service
 @Transactional
@@ -17,7 +18,9 @@ class MemberServiceImpl : MemberService {
     @Transactional(readOnly = false)
     override fun join(member: Member): String? {
         if (!validateById(member.memberId)) return null
-        if (!validateByPassword(member.password)) return null
+        if (!CommonUtils.validateByPassword(member.password)) return null
+
+        member.password = member.password.encryptPassword()
 
         return memberRepository.save(member).memberId
     }
@@ -32,11 +35,5 @@ class MemberServiceImpl : MemberService {
 
     fun validateById(memberId: String): Boolean {
         return findByMemberId(memberId) == null
-    }
-
-    fun validateByPassword(password: String): Boolean {
-        val pattern = Pattern.compile("^(?=.*[a-zA-Z])(?=.*\\d)(?=.*\\W).{8,20}$")
-        val matcher = pattern.matcher(password)
-        return matcher.find()
     }
 }
