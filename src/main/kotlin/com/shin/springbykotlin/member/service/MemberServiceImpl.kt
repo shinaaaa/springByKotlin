@@ -30,7 +30,13 @@ class MemberServiceImpl : MemberService {
     }
 
     override fun delete(memberId: String, password: String): Boolean {
-        return memberRepository.deleteMemberByMemberIdAndPassword(memberId, password) == 1
+        return memberRepository.deleteMemberByMemberIdAndPassword(memberId, password.encryptPassword()) == 1
+    }
+
+    override fun changePassword(memberId: String, prePassword: String, postPassword: String): Boolean {
+        memberRepository.findByMemberIdAndPassword(memberId, prePassword.encryptPassword()) ?: return false
+
+        return memberRepository.updateByMemberIdAndPassword(memberId, postPassword.encryptPassword()) == 1
     }
 
     fun validateById(memberId: String): Boolean {

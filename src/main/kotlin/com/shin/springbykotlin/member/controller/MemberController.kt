@@ -35,11 +35,20 @@ class MemberController {
     }
 
     @PostMapping("/delete")
-    fun delete(memberId : String, password : String) : ResponseFormat {
+    fun delete(memberId: String, password: String): ResponseFormat {
         return ResponseFormat
             .Builder()
             .setStatus(HttpStatus.OK)
-            .setData(memberService.delete(memberId , password))
+            .setData(memberService.delete(memberId, password))
+            .build()
+    }
+
+    @PostMapping("/changePassword")
+    fun changePassword(memberId: String, perPassword: String, postPassword: String): ResponseFormat {
+        return ResponseFormat
+            .Builder()
+            .setStatus(HttpStatus.OK)
+            .setData(memberService.changePassword(memberId, perPassword, postPassword))
             .build()
     }
 }

@@ -5,5 +5,6 @@ import com.shin.springbykotlin.member.model.Member
 interface MemberService {
     fun join(member: Member): String?
     fun findByMemberId(memberId: String): Member?
-    fun delete(memberId : String, password : String): Boolean
+    fun delete(memberId: String, password: String): Boolean
+    fun changePassword(memberId: String, prePassword: String, postPassword: String): Boolean
 }
