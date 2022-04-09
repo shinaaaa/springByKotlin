@@ -9,6 +9,8 @@ class CommonUtils {
 
     companion object {
 
+        const val key = "asdasdasdasdasdasdasdasasdasdasd"
+
         fun validateByPassword(password: String): Boolean {
             val pattern = Pattern.compile("^(?=.*[a-zA-Z])(?=.*\\d)(?=.*\\W).{8,20}$")
             val matcher = pattern.matcher(password)
@@ -16,7 +18,7 @@ class CommonUtils {
         }
 
         fun String.encryptPassword(): String {
-            val secretKeySpec = SecretKeySpec("asdasdasdasdasdasdasdasasdasdasd".toByteArray(), "AES")
+            val secretKeySpec = SecretKeySpec(key.toByteArray(), "AES")
             val cipher = Cipher.getInstance("AES/ECB/PKCS5Padding")
             cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec)
             val pw = cipher.doFinal(this.toByteArray())
@@ -24,7 +26,7 @@ class CommonUtils {
         }
 
         fun String.decryptPassword(): String {
-            val secretKeySpec = SecretKeySpec("asdasdasdasdasdasdasdasasdasdasd".toByteArray(), "AES")
+            val secretKeySpec = SecretKeySpec(key.toByteArray(), "AES")
             val pw = Base64.getDecoder().decode(this)
             val cipher = Cipher.getInstance("AES/ECB/PKCS5PADDING")
             cipher.init(Cipher.DECRYPT_MODE, secretKeySpec)
